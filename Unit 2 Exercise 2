@@ -1,0 +1,89 @@
+--Unit 2 Exercise 2
+/*------------------------------------------------------------*/
+--*1. Create a list of employees, including all columns.
+SELECT *
+FROM employee;
+/*------------------------------------------------------------*/
+--2. Write a query to determine which employees have fewer than 30 remaining vacation days.
+SELECT *
+FROM employee
+WHERE remainderdays < 30;
+/*------------------------------------------------------------*/
+--3. Create a list of department IDs that the different employees work for. The list should not 
+--contain duplicates.
+SELECT DISTINCT depid
+FROM employee;
+/*------------------------------------------------------------*/
+--4. Write a query to determine which employees have fewer than 30 remaining vacation days. 
+--Sort the output descending by RemainderDays and, for employees with the same number 
+--of RemainderDays, ascending by DNumber.
+SELECT *
+FROM employee
+WHERE remainderdays < 30
+ORDER BY 
+	remainderdays DESC, 
+	dnumber ASC;
+/*------------------------------------------------------------*/
+--5. Write a query to determine the employees for which the remaining vacation days are 
+--unknown.
+SELECT *
+FROM employee
+WHERE remainderdays IS NULL;
+/*------------------------------------------------------------*/
+--6. Write a query to determine how many remaining vacation days can be found for the 
+--different employees in the company. Each quantity number should be displayed only once.
+SELECT DISTINCT remainderdays
+FROM employee;
+/*------------------------------------------------------------*/
+--7. Create a list of employees. Only columns DNumber and Name are relevant. The output 
+--column DNumber should be renamed to “Personal Number” (with small letters).
+SELECT 
+	dnumber AS "Personal Number",
+	name
+FROM employee;
+/*------------------------------------------------------------*/
+--8. Write a query to determine how many remaining vacation days “Ms D” has.
+SELECT remainderdays
+FROM employee
+WHERE name = 'Ms D';
+/*------------------------------------------------------------*/
+--9. Write a query to determine which employees have exactly 10 remaining vacation days.
+SELECT *
+FROM employee
+WHERE remainderdays = 10;
+/*------------------------------------------------------------*/
+--10. The value of a vacation day is estimated at EUR 300 (all-in). Write a query to determine 
+--which employees have remaining vacation days with a value of at least EUR 600.
+SELECT *
+FROM employee
+WHERE remainderdays * 300 >= 600;
+/*------------------------------------------------------------*/
+--11. Write a query to determine which employees work in department “A01” or “A04”. Use OR.
+SELECT *
+FROM employee
+WHERE depid = 'A01'
+	OR depid = 'A04';
+/*------------------------------------------------------------*/
+--12. Write a query to determine which employees work in department "A01" or "A04". Use IN.
+SELECT *
+FROM employee
+WHERE (depid IN ('A01', 'A04'));
+/*------------------------------------------------------------*/
+--13. Write a query to determine which employees not working for department “A01” have
+--exactly 10 remaining vacation days.
+SELECT *
+FROM employee
+WHERE depid <> 'A01'
+	AND remainderdays = 10;
+/*------------------------------------------------------------*/
+--14. Write a query to determine which employee names include an “L”.
+SELECT *
+FROM employee
+WHERE name LIKE '%L%';
+/*------------------------------------------------------------*/
+--15. Write a query to determine which employees have a name beginning with “M” and in the 
+--fourth place a “K”.
+SELECT *
+FROM employee
+WHERE name LIKE 'M__K%';
+/*------------------------------------------------------------*/ 
