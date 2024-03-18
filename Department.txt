@@ -1,0 +1,4 @@
+CREATE COLUMN TABLE Department -- the company's departments
+( DepID CHAR(3) PRIMARY KEY, -- department ID
+Name VARCHAR(20), -- department name
+Status VARCHAR(10) DEFAULT 'profitable' );

@@ -1,0 +1,8 @@
+CREATE COLUMN TABLE EMPLOYEE -- data about company's employees
+( DNumber CHAR(7), -- personnel number
+Name VARCHAR(20)
+NOT NULL, -- employee's name
+DateOfBirth DATE, -- employee's date of birth
+RemainderDays INTEGER, -- # of vacation days left
+DepID CHAR(3), -- department employee works for
+PRIMARY KEY(DNumber) );
