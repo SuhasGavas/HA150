@@ -1,0 +1,47 @@
+--Unit 2 Exercise 6
+/*------------------------------------------------------------*/
+--1. Copy the data from table EMPLOYEE into the (structural equal) table STAFF.
+INSERT INTO staff
+( 	(SELECT *
+FROM employee) );
+/*------------------------------------------------------------*/
+--2. Set the remaining vacation days for Mr A in the table STAFF to 50 days.
+UPDATE staff
+SET remainderdays = 50
+WHERE name = 'Mr A';
+/*------------------------------------------------------------*/
+--3. Reduce the remaining vacation days to 18 for all employees (table STAFF), who have more
+--than 18 days.
+UPDATE staff
+SET remainderdays = 18
+WHERE remainderdays > 18;
+/*------------------------------------------------------------*/
+--4. Triple the remaining vacation days of employees (table STAFF) working for the
+--Development or Test departments.
+UPDATE staff
+SET remainderdays = remainderdays * 3
+WHERE (depid IN (SELECT depid
+FROM department
+WHERE (name IN ('Development', 'Test'))));
+/*------------------------------------------------------------*/
+--5. Create a new entry in table STAFF for Mr X, born on 7 July 1977. He works in Department
+--A01, is being credited with 10 days of vacation, and will have the unique ID D200000.
+INSERT INTO STAFF VALUES('D200000', 'Mr X', '1977-07-07', 10, 'A01');
+/*DEPID <CHAR(3)>*/
+/*------------------------------------------------------------*/
+--6. Mr A is leaving the company. Delete his data from table STAFF.
+DELETE FROM staff
+WHERE name = 'Mr A';
+/*------------------------------------------------------------*/
+--7. Delete employees from table STAFF, where the department information is unknown.
+DELETE FROM staff
+WHERE depid IS NULL;
+/*------------------------------------------------------------*/
+--8. The departments "Planning" and Test" are closed. Delete all employees of those
+--departments from table STAFF.
+DELETE FROM staff
+WHERE (depid IN (SELECT depid
+FROM department
+WHERE name = 'Planning'
+	OR name = 'Test'));
+/*------------------------------------------------------------*/
