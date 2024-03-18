@@ -1,0 +1,103 @@
+--Unit 2 Exercise 4
+/*------------------------------------------------------------*/
+--1. Which employees work for department "A01" or "A04"? Use UNION.
+SELECT *
+FROM employee
+WHERE depid = 'A01'
+
+UNION
+
+SELECT *
+FROM employee
+WHERE depid = 'A04';
+/*------------------------------------------------------------*/
+--2. Which employees work for which department? Use an explicit JOIN. Disregard employees
+--without a department and departments without employees.
+SELECT 
+	e.dnumber,
+	e.name AS emp_name,
+	e.dateofbirth,
+	e.remainderdays,
+	e.depid,
+	d.name AS dep_name,
+	d.status
+FROM 
+	employee AS e
+	INNER JOIN
+	department AS d
+	ON e.depid = d.depid
+WHERE e.depid IS NOT NULL;
+/*------------------------------------------------------------*/
+--3. Which employees work for which department? Include employees without a department,
+--but disregard departments without employees.
+SELECT 
+	e.dnumber,
+	e.name AS emp_name,
+	e.dateofbirth,
+	e.remainderdays,
+	e.depid,
+	d.name AS dep_name,
+	d.status
+FROM 
+	employee AS e
+	LEFT OUTER JOIN
+	department AS d
+	ON e.depid = d.depid;
+/*------------------------------------------------------------*/
+--4. Which employees work for which department? Disregard employees without a
+--department, but include departments without employees.
+SELECT 
+	e.dnumber,
+	e.name AS emp_name,
+	e.dateofbirth,
+	e.remainderdays,
+	e.depid,
+	d.name AS dep_name,
+	d.status
+FROM 
+	employee AS e
+	RIGHT OUTER JOIN
+	department AS d
+	ON e.depid = d.depid;
+/*------------------------------------------------------------*/
+--5. Which employees work for which department? Include both employees without a
+--department and departments without employees.
+SELECT 
+	e.dnumber,
+	e.name AS emp_name,
+	e.dateofbirth,
+	e.remainderdays,
+	e.depid,
+	d.name AS dep_name,
+	d.status
+FROM 
+	employee AS e
+	FULL OUTER JOIN
+	department AS d
+	ON e.depid = d.depid;
+/*------------------------------------------------------------*/
+--6. Which employees work for the Sales department?
+SELECT 
+	e.*,
+	d.name AS dep_name
+FROM 
+	employee AS e
+	INNER JOIN
+	department AS d
+	ON e.depid = d.depid
+		AND d.name = 'Sales';
+/*------------------------------------------------------------*/
+--7. How many remaining vacation days has each department accumulated? Include only
+--colleagues born after 03.02.1972. Sort the output of the remaining days in descending
+--order. Include only departments that have accumulated more than 30 remaining vacation
+--days.
+SELECT 
+	sum(e.remainderdays),
+	e.depid
+FROM employee AS e
+WHERE e.dateofbirth > '1972-02-03'
+GROUP BY e.depid
+HAVING sum(e.remainderdays) > 30
+ORDER BY sum(e.remainderdays) DESC;
+
+/*------------------------------------------------------------*/
