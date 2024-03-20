@@ -1,0 +1,7 @@
+FUNCTION "remainderdays_rixedvalue"( im_remainderdays integer )
+       RETURNS rv_result decimal(10,2)
+       LANGUAGE SQLSCRIPT 
+       SQL SECURITY INVOKER AS 
+BEGIN 
+rv_result = im_remainderdays * 300;
+END;
